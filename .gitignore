@@ -1,0 +1,23 @@
+# Virtual environment (recreated with: python -m venv .venv)
+.venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Tool caches and reports
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment / secrets (API keys will live in .env – never commit it)
+.env
+.env.*
+!.env.example
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
