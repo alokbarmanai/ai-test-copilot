@@ -1,7 +1,10 @@
 import logging
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 
 from src.load_report import collect_specs, load_report
+from src.db import get_connection, init_db
+
+init_db()
 
 log = logging.getLogger(__name__)
 
@@ -29,6 +32,37 @@ def upload_results(payload: dict) -> dict:
     _report = payload
     specs = collect_specs(_report["suites"])
     return {"message": "Report stored", "total_specs": len(specs)}
+
+
+@app.get("/db/summary")
+def db_summary(file: str | None = Query(default=None)) -> list:
+    """Query pass rate by file from SQLite. Optionally filter by file."""
+    with get_connection() as conn:
+        if file:
+            rows = conn.execute(
+                """
+                SELECT file, COUNT(*) as total,
+                       SUM(ok) as passed,
+                       ROUND(AVG(ok) * 100, 1) as pass_rate
+                FROM results WHERE file = ?
+                GROUP BY file
+                """,
+                (file,),
+            ).fetchall()
+        else:
+            rows = conn.execute(
+                """
+                SELECT file, COUNT(*) as total,
+                       SUM(ok) as passed,
+                       ROUND(AVG(ok) * 100, 1) as pass_rate
+                FROM results
+                GROUP BY file
+                ORDER BY pass_rate
+                """
+            ).fetchall()
+    if not rows:
+        raise HTTPException(status_code=404, detail="No results found")
+    return [dict(r) for r in rows]
 
 
 @app.get("/summary")
