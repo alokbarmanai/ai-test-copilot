@@ -1,0 +1,128 @@
+run_id,file,title,ok,duration_ms,tags
+run-001,api/auth.spec.ts,valid login returns a token and the user name,True,306,api|smoke
+run-001,api/auth.spec.ts,rejects login: wrong password,True,29,api
+run-001,api/auth.spec.ts,rejects login: unknown user,True,23,api
+run-001,api/auth.spec.ts,rejects login: locked user with correct password,True,29,api
+run-001,api/auth.spec.ts,rejects login: locked user with wrong password,True,21,api
+run-001,api/auth.spec.ts,rejects login: empty password,True,27,api
+run-001,api/auth.spec.ts,rejects login: empty username,True,18,api
+run-001,api/auth.spec.ts,logout without a token is rejected,True,18,api
+run-001,api/auth.spec.ts,logout with a valid token succeeds,True,24,api
+run-001,api/auth.spec.ts,a token cannot be reused after logout,True,24,api
+run-001,api/auth.spec.ts,a tampered token is rejected,True,23,api
+run-001,api/auth.spec.ts,GET /api/products without a token returns 401,True,17,api
+run-001,api/auth.spec.ts,GET /api/cart without a token returns 401,True,18,api
+run-001,api/auth.spec.ts,GET /api/orders without a token returns 401,True,16,api
+run-001,api/cart.spec.ts,a new customer has an empty cart,True,24,api
+run-001,api/cart.spec.ts,adding an item returns the updated cart,True,26,api|smoke
+run-001,api/cart.spec.ts,the cart is remembered between requests,True,53,api
+run-001,api/cart.spec.ts,changing the quantity updates totals and shipping (RULE-07),True,26,api
+run-001,api/cart.spec.ts,removing an item empties the cart,True,25,api
+run-001,api/cart.spec.ts,removing an item that is not in the cart returns 404,True,21,api
+run-001,api/cart.spec.ts,updating an item that is not in the cart returns 404,True,39,api
+run-001,api/cart.spec.ts,rejects adding: out-of-stock product (RULE-03),True,21,api
+run-001,api/cart.spec.ts,rejects adding: quantity 0 (RULE-01),True,23,api
+run-001,api/cart.spec.ts,rejects adding: quantity 6 (RULE-01),True,22,api
+run-001,api/cart.spec.ts,rejects adding: more than the stock (RULE-02),True,38,api
+run-001,api/cart.spec.ts,rejects adding: unknown product,True,25,api
+run-001,api/cart.spec.ts,rejects a non-numeric quantity,True,25,api
+run-001,api/cart.spec.ts,customers cannot see each other's carts,True,33,api
+run-001,api/cart.spec.ts,"SAVE10 gives 10% off (RULE-06, RQ-01)",True,50,api|smoke
+run-001,api/cart.spec.ts,codes are not case-sensitive (RULE-05),True,24,api
+run-001,api/cart.spec.ts,rejects an unknown code,True,25,api
+run-001,api/cart.spec.ts,rejects an expired code,True,25,api
+run-001,api/cart.spec.ts,allows only one coupon per order (RULE-04),True,29,api
+run-001,api/cart.spec.ts,removing the coupon restores the full price,True,27,api
+run-001,api/cart.spec.ts,rejects a coupon on an empty cart,True,29,api
+run-001,api/cart.spec.ts,FLAT5 requires a $30.00 subtotal (BRD 7.1),True,32,api
+run-001,api/cart.spec.ts,FLAT5 can leave the total unchanged (RQ-03),True,37,api
+run-001,api/health.spec.ts,GET /api/health returns ok,True,14,smoke|api
+run-001,api/orders.spec.ts,rejects an order with an empty cart,True,21,api
+run-001,api/orders.spec.ts,rejects a missing ZIP Code,True,25,api
+run-001,api/orders.spec.ts,rejects a blank Full Name,True,25,api
+run-001,api/orders.spec.ts,rejects a 4-digit ZIP Code,True,24,api
+run-001,api/orders.spec.ts,rejects a 6-digit ZIP Code,True,27,api
+run-001,api/orders.spec.ts,rejects a 5-digit phone,True,26,api
+run-001,api/orders.spec.ts,rejects a phone with dashes (RQ-05),True,24,api
+run-001,api/orders.spec.ts,a rejected order changes nothing,True,39,api
+run-001,api/orders.spec.ts,a valid order returns 201 with the order details,True,35,api|smoke
+run-001,api/orders.spec.ts,empties the cart and reduces stock,True,34,api
+run-001,api/orders.spec.ts,keeps the coupon discount in the order total,True,28,api
+run-001,api/orders.spec.ts,lists orders newest first,True,36,api
+run-001,api/orders.spec.ts,returns summary fields only (no shipping address),True,27,api
+run-001,api/orders.spec.ts,customers see only their own orders,True,31,api
+run-001,api/orders.spec.ts,the second checkout fails when the stock was sold in the meantime,True,52,api
+run-001,api/products.spec.ts,lists all 6 products with stock status (RULE-03),True,23,api|smoke
+run-001,api/products.spec.ts,"P-01: {""search"":""mouse""}",True,21,api
+run-001,api/products.spec.ts,"P-02: {""search"":""MOUSE""}",True,20,api
+run-001,api/products.spec.ts,"P-03: {""search"":""o""}",True,19,api
+run-001,api/products.spec.ts,"P-04: {""category"":""Audio""}",True,20,api
+run-001,api/products.spec.ts,"P-05: {""category"":""Accessories"",""search"":""hub""}",True,20,api
+run-001,api/products.spec.ts,"P-06: {""search"":""xyz""}",True,19,api
+run-001,api/products.spec.ts,"P-07: {""search"":"" mo""}",True,19,api
+run-001,api/products.spec.ts,"P-08: {""category"":""Au""}",True,20,api
+run-001,api/products.spec.ts,"P-09: {""search"":""""}",True,22,api
+run-001,ui/cart.spec.ts,an empty cart says so,True,1189,ui
+run-001,ui/cart.spec.ts,an empty cart says so,False,87,ui
+run-001,ui/cart.spec.ts,shows the items and totals,True,557,ui|smoke
+run-001,ui/cart.spec.ts,"changing a quantity updates line total, totals and badge",True,628,ui
+run-001,ui/cart.spec.ts,an invalid quantity shows the error and keeps the real value (RULE-01),True,532,ui
+run-001,ui/cart.spec.ts,"a coupon can be applied in lower case (RULE-05, RQ-03)",True,603,ui
+run-001,ui/cart.spec.ts,removing the coupon restores the price,True,668,ui
+run-001,ui/cart.spec.ts,an invalid coupon shows the server message,True,556,ui
+run-001,ui/cart.spec.ts,removing every item shows the empty cart,True,580,ui
+run-001,ui/cart.spec.ts,shows the items and totals,False,142,ui|smoke
+run-001,ui/cart.spec.ts,"changing a quantity updates line total, totals and badge",False,128,ui
+run-001,ui/cart.spec.ts,an invalid quantity shows the error and keeps the real value (RULE-01),False,128,ui
+run-001,ui/cart.spec.ts,"a coupon can be applied in lower case (RULE-05, RQ-03)",False,132,ui
+run-001,ui/cart.spec.ts,removing the coupon restores the price,False,184,ui
+run-001,ui/cart.spec.ts,an invalid coupon shows the server message,False,135,ui
+run-001,ui/cart.spec.ts,removing every item shows the empty cart,False,130,ui
+run-001,ui/checkout.spec.ts,with an empty cart there is no form,True,412,ui
+run-001,ui/checkout.spec.ts,with an empty cart there is no form,False,116,ui
+run-001,ui/checkout.spec.ts,shows the order summary,True,504,ui
+run-001,ui/checkout.spec.ts,an empty form shows the first required field (RULE-12),True,502,ui
+run-001,ui/checkout.spec.ts,shows an error for a 4-digit ZIP Code (RULE-10),True,621,ui
+run-001,ui/checkout.spec.ts,"shows an error for a phone with dashes (RULE-11, RQ-05)",True,647,ui
+run-001,ui/checkout.spec.ts,shows the order summary,False,116,ui
+run-001,ui/checkout.spec.ts,an empty form shows the first required field (RULE-12),False,117,ui
+run-001,ui/checkout.spec.ts,shows an error for a 4-digit ZIP Code (RULE-10),False,122,ui
+run-001,ui/checkout.spec.ts,"shows an error for a phone with dashes (RULE-11, RQ-05)",False,129,ui
+run-001,ui/journey.spec.ts,"a customer can log in, shop, check out and find the order",True,1242,smoke|ui|e2e
+run-001,ui/journey.spec.ts,"a customer can log in, shop, check out and find the order",False,94,smoke|ui|e2e
+run-001,ui/login.spec.ts,opens with the login form,True,327,ui|smoke
+run-001,ui/login.spec.ts,valid login opens the products page and greets the user,True,556,ui|smoke
+run-001,ui/login.spec.ts,shows an error for empty fields,True,442,ui
+run-001,ui/login.spec.ts,shows an error for wrong password,True,426,ui
+run-001,ui/login.spec.ts,shows an error for locked account,True,433,ui
+run-001,ui/login.spec.ts,masks the password and marks fields as required (NFR-03),True,330,ui
+run-001,ui/login.spec.ts,logout returns to the login page and ends the session,True,602,ui
+run-001,ui/login.spec.ts,store pages require login,True,361,ui
+run-001,ui/login.spec.ts,opens with the login form,False,94,ui|smoke
+run-001,ui/login.spec.ts,valid login opens the products page and greets the user,False,96,ui|smoke
+run-001,ui/login.spec.ts,shows an error for empty fields,False,95,ui
+run-001,ui/login.spec.ts,shows an error for wrong password,False,90,ui
+run-001,ui/login.spec.ts,shows an error for locked account,False,88,ui
+run-001,ui/login.spec.ts,masks the password and marks fields as required (NFR-03),False,88,ui
+run-001,ui/login.spec.ts,logout returns to the login page and ends the session,False,91,ui
+run-001,ui/login.spec.ts,store pages require login,False,86,ui
+run-001,ui/orders.spec.ts,a new customer has no orders,True,385,ui
+run-001,ui/orders.spec.ts,orders are listed newest first,True,488,ui
+run-001,ui/orders.spec.ts,another customer cannot open my order confirmation,True,629,ui
+run-001,ui/orders.spec.ts,a new customer has no orders,False,192,ui
+run-001,ui/orders.spec.ts,orders are listed newest first,False,119,ui
+run-001,ui/orders.spec.ts,another customer cannot open my order confirmation,False,104,ui
+run-001,ui/products.spec.ts,shows all products with USD prices (RULE-09),True,500,ui
+run-001,ui/products.spec.ts,out-of-stock products cannot be added (RULE-03),True,607,ui
+run-001,ui/products.spec.ts,search finds products by partial name,True,544,ui
+run-001,ui/products.spec.ts,a search without results says so,True,447,ui
+run-001,ui/products.spec.ts,category filter shows only that category,True,445,ui
+run-001,ui/products.spec.ts,adding to cart shows a message and updates the badge,True,531,ui|smoke
+run-001,ui/products.spec.ts,adding more than the stock shows the server message (RULE-02),True,628,ui
+run-001,ui/products.spec.ts,shows all products with USD prices (RULE-09),False,100,ui
+run-001,ui/products.spec.ts,out-of-stock products cannot be added (RULE-03),False,102,ui
+run-001,ui/products.spec.ts,search finds products by partial name,False,95,ui
+run-001,ui/products.spec.ts,a search without results says so,False,95,ui
+run-001,ui/products.spec.ts,category filter shows only that category,False,113,ui
+run-001,ui/products.spec.ts,adding to cart shows a message and updates the badge,False,89,ui|smoke
+run-001,ui/products.spec.ts,adding more than the stock shows the server message (RULE-02),False,87,ui
