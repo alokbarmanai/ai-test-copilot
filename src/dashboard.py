@@ -57,7 +57,7 @@ if uploaded:
                 tag_counts[tag]["failed"] += 1
 
     cols = st.columns(len(tag_counts))
-    for col, (tag, counts) in zip(cols, sorted(tag_counts.items())):
+    for col, (tag, counts) in zip(cols, sorted(tag_counts.items()), strict=False):
         t = counts["passed"] + counts["failed"]
         col.metric(f"@{tag}", f"{counts['passed']}/{t}", delta_color="off")
 
