@@ -108,5 +108,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-# run command: python src/load_report.py "D:\Development Projects\source\ai projects\shopease\shopease-tests-report.json"

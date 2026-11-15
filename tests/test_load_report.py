@@ -1,6 +1,8 @@
 import json
-import pytest
 from pathlib import Path
+
+import pytest
+
 from src.load_report import collect_specs, load_report
 
 # ---------------------------------------------------------------------------

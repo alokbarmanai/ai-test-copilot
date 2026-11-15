@@ -1,8 +1,9 @@
 import logging
+
 from fastapi import FastAPI, HTTPException, Query
 
-from src.load_report import collect_specs, load_report
 from src.db import get_connection, init_db
+from src.load_report import collect_specs
 
 init_db()
 
