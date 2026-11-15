@@ -1,9 +1,10 @@
 import json
 import sqlite3
-from pathlib import Path
+
+from src.config import settings
 from src.load_report import collect_specs
 
-DB_PATH = Path("data/results.db")
+DB_PATH = settings.db_path
 
 
 def get_connection() -> sqlite3.Connection:
