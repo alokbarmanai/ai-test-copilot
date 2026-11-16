@@ -1,6 +1,7 @@
 import logging
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi.responses import JSONResponse
 
 from src.db import get_connection, init_db
 from src.load_report import collect_specs
@@ -10,6 +11,21 @@ init_db()
 log = logging.getLogger(__name__)
 
 app = FastAPI(title="AI Test Copilot", version="0.1.0")
+
+MAX_UPLOAD_BYTES = 10 * 1024 * 1024  # 10 MB
+
+
+@app.middleware("http")
+async def limit_upload_size(request: Request, call_next):
+    if request.method == "POST":
+        content_length = request.headers.get("content-length")
+        if content_length and int(content_length) > MAX_UPLOAD_BYTES:
+            return JSONResponse(
+                status_code=413,
+                content={"detail": "Payload too large (max 10MB)"},
+            )
+    return await call_next(request)
+
 
 # In-memory store — one report at a time for now
 _report: dict | None = None
@@ -22,7 +38,7 @@ def health() -> dict:
 
 @app.post("/results")
 def upload_results(payload: dict) -> dict:
-    """Accept a Playwright JSON report and store it."""
+    """Accept a Playwright JSON report and store it. Max ~10MB."""
     global _report
     required = {"config", "suites", "stats"}
     if not required.issubset(payload.keys()):
@@ -51,16 +67,14 @@ def db_summary(file: str | None = Query(default=None)) -> list:
                 (file,),
             ).fetchall()
         else:
-            rows = conn.execute(
-                """
+            rows = conn.execute("""
                 SELECT file, COUNT(*) as total,
                        SUM(ok) as passed,
                        ROUND(AVG(ok) * 100, 1) as pass_rate
                 FROM results
                 GROUP BY file
                 ORDER BY pass_rate
-                """
-            ).fetchall()
+                """).fetchall()
     if not rows:
         raise HTTPException(status_code=404, detail="No results found")
     return [dict(r) for r in rows]

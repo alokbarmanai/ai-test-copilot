@@ -51,6 +51,18 @@ def test_upload_malformed_json():
     assert r.status_code == 422
 
 
+def test_upload_too_large():
+    r = client.post(
+        "/results",
+        content=b"{}",
+        headers={
+            "Content-Type": "application/json",
+            "content-length": str(11 * 1024 * 1024),  # fake 11MB
+        },
+    )
+    assert r.status_code == 413
+
+
 # --- /summary ---
 
 
